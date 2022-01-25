@@ -1,7 +1,8 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Nav from './components/Nav/index'
+
 
 // pages
 import Login from './pages/Login'
@@ -17,6 +18,8 @@ function App() {
 
   // const user = useContext(UserContext)
   // console.log(user)
+  
+  const [user, setUser] = useState('')
 
   return (
     <div className="App">
@@ -25,12 +28,12 @@ function App() {
       {/* We need the value prop inside our provider */}
 
       HELLO WORLD!
-      <UserContext.Provider value={'Christina'}>
+      <UserContext.Provider value={user}>
         <Nav />
 
         {/* We need to wrap all of our routes inside of react router routes component */}
         <Routes>
-          <Route path='login' element={<Login />}/>
+          <Route path='login' element={<Login setUser={setUser} />}/>
         </Routes>
 
       </UserContext.Provider>
