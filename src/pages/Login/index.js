@@ -1,4 +1,5 @@
 import { useState} from "react";
+import { useNavigate } from "react-router-dom"; 
 import './styles.css'
 
 
@@ -8,6 +9,7 @@ const Login = ({setUser }) => {
 // const Login = (props) => {
     // destructuring props and only taking in setUser
     const [userName, setUserName] = useState('')
+    const navigate = useNavigate()
 
     const handleChange = e => {
         setUserName(e.target.value)
@@ -19,6 +21,10 @@ const Login = ({setUser }) => {
 
         console.log('in handlesubmit');
         setUser(userName);
+
+        //we can use useNavigate from rr to redirect our users to a different component/page
+        navigate('/pokemon/list')
+
     }
 
     // const [user, setUser] = useState('')
