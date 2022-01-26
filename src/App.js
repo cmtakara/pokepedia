@@ -10,8 +10,10 @@ import Login from './pages/Login'
 
 //contexts
 import UserContext from './contexts/UserContext'
+import PokemonList from './pages/PokemonList';
+import Home from './pages/Home'
 
-function App() {
+const App = () => {
 
   // in order for us to use our context, we start by importing
   // then we can utilize useContext (not to be confused with the UserContext that we created)
@@ -33,7 +35,9 @@ function App() {
 
         {/* We need to wrap all of our routes inside of react router routes component */}
         <Routes>
+          <Route path='/' element={<Home />}/>
           <Route path='login' element={<Login setUser={setUser} />}/>
+          <Route path='pokemon/list' element={<PokemonList />} />
         </Routes>
 
       </UserContext.Provider>
