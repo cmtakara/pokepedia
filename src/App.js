@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Nav from './components/Nav/index'
+import axios from 'axios'
 
 
 // pages
@@ -22,6 +23,28 @@ const App = () => {
   // console.log(user)
   
   const [user, setUser] = useState('')
+  const [pokeList, setPokeList] = useState([])
+
+  useEffect(() => {
+    fetchPokemon()
+    // empty array brackets = dependency array: 
+    // if empty, it will call useEffect once only when the DOM Component loads
+  }, [])
+  
+  const fetchPokemon = async() => {
+    try {
+      const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1118")
+
+      setPokeList(response.data.results)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  console.log('pokeList', pokeList)
+
+  // useEffect()
 
   return (
     <div className="App">
@@ -37,7 +60,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='login' element={<Login setUser={setUser} />}/>
-          <Route path='pokemon/list' element={<PokemonList />} />
+          <Route path='pokemon/list' element={<PokemonList pokeList={pokeList} itemsPerPage={4}/>} />
         </Routes>
 
       </UserContext.Provider>
